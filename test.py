@@ -11,4 +11,4 @@ bl_O = np.array([[True,True],[True,True]])
 
 a = tb.block('T',bl_T)
 
-print a.rotate().rotate().rotate()
+print(a.rotate().rotate().rotate())

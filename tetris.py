@@ -1,10 +1,12 @@
-
 import pygame as pg
 import numpy as np
+import random
+import tetris_block as tb
+
 pg.init()
 
 back_grid = np.zeros((20,10),dtype = np.bool)
-print back_grid
+print(back_grid)
 
 screen = pg.display.set_mode((500,670))
 screen.fill((255,255,255))#rgb(255,255,255)
@@ -33,15 +35,42 @@ bl_S = np.array([[False,True,True],[True,True,False]])
 bl_Z = np.array([[True,True,False],[False,True,True]])
 bl_O = np.array([[True,True],[True,True]])
 
-pg.display.update()
+
+##test#######
+class block(object):
+    def __init__(self,type,shape):
+        self._shape = shape
+        self._type = type
+    def rotate(self):
+        b = np.zeros((self._shape.shape[1],self._shape.shape[0]))
+        for h_dim in range(0,self._shape.shape[1]):
+            b[h_dim] = np.flip(self._shape[:,h_dim])
+        return block(self._type,b)
+    def get_type(self):
+        return self._type
+    def __str__(self):
+        return '{0}'.format(self._shape)
+    def print(self):
+        for i in range(len(self._shape)):
+            for j in range(len(self._shape[i])):
+                if self._shape[i][j]:
+                    pg.draw.rect(screen, (0, 0, 0), (25 + 40 * j, 25 + 40 * i, 40, 40))
+block_list = [bl_T,bl_L,bl_J,bl_I,bl_S,bl_Z,bl_O]
+block_type = ['T','L','J','I','S','Z','O']
+x = random.randrange(0,6)
+block_now = block(block_type[x],block_list[x])
+
+
 
 run = True
 while run:
     pg.time.delay(100)
-
-
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
 
+    block_now.print()
+
+
+    pg.display.update()
 pg.quit()
