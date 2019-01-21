@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import pygame as pg
 import numpy as np
 pg.init()
@@ -28,10 +28,10 @@ pg.draw.line(screen,(0,0,0),[425,625],[25,625],3)#rgb(0,0,0)
 bl_T = np.array([[True,True,True],[False,True,False]])
 bl_L = np.array([[True,False],[True,False],[True,True]])
 bl_J = np.array([[False,True],[False,True],[True,True]])
-bl_I = np.array([True,True,True,True])
+bl_I = np.array([[True,True,True,True],[False,False,False,False]])
 bl_S = np.array([[False,True,True],[True,True,False]])
 bl_Z = np.array([[True,True,False],[False,True,True]])
-bl_O = np.array([True,True],[True,True])
+bl_O = np.array([[True,True],[True,True]])
 
 pg.display.update()
 
