@@ -38,22 +38,23 @@ class block(object):
     def __init__(self,type,shape,x,y):
         self._shape = shape
         self._type = type
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
     def rotate(self):
         b = np.zeros((self._shape.shape[1],self._shape.shape[0]))
         for h_dim in range(0,self._shape.shape[1]):
             b[h_dim] = np.flip(self._shape[:,h_dim])
-        return block(self._type,b)
+        return block(self._type,b,self._x,self._y)
     def get_type(self):
         return self._type
     def __str__(self):
         return '{0}'.format(self._shape)
-    def print(self):
+    def draw(self):
         for i in range(len(self._shape)):
             for j in range(len(self._shape[i])):
                 if self._shape[i][j]:
-                    pg.draw.rect(screen, (0, 0, 0), (25+40*self.x+40*j,25+40*self.y+40*i,40,40))
+                    pg.draw.rect(screen, (0, 0, 0), (25+40*self._x+40*j,25+40*self._y+40*i,40,40))
+
 block_list = [bl_T,bl_L,bl_J,bl_I,bl_S,bl_Z,bl_O]
 block_type = ['T','L', 'J','I','S','Z','O']
 x = random.randrange(0,6)
@@ -68,17 +69,21 @@ while run:
         if event.type == pg.QUIT:
             run = False
     screen.fill((255, 255, 255))  # rgb(255,255,255)
-    block_now.print()
+    block_now.draw()
     draw()
 
     keys = pg.key.get_pressed()
-    if keys[pg.K_LEFT] and block_now.x > 0:
-        block_now.x -= 1
-    if keys[pg.K_RIGHT] and block_now.x < 10 - block_dim[1]:
-        block_now.x += 1
-    if block_now.y < 15 - block_dim[0]:
-        block_now.y += 1
+    if keys[pg.K_LEFT] and block_now._x > 0:
+        block_now._x -= 1
+    if keys[pg.K_RIGHT] and block_now._x < 10 - block_dim[1]:
+        block_now._x += 1
+    if keys[pg.K_r]:
+        block_now = block_now.rotate()
+        block_now.draw()
+
+    if block_now._y < 15 - block_dim[0]:
+        block_now._y += 1
 
     pg.display.update()
-    clock.tick(60)
+    clock.tick(120)
 pg.quit()
