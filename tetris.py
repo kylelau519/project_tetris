@@ -27,13 +27,10 @@ def draw():
 bl_T = np.array([[True,True,True],[False,True,False]])
 bl_L = np.array([[True,False],[True,False],[True,True]])
 bl_J = np.array([[False,True],[False,True],[True,True]])
-bl_I = np.array([[True,True,True,True],[False,False,False,False]])
+bl_I = np.array([[True,True,True,True]])
 bl_S = np.array([[False,True,True],[True,True,False]])
 bl_Z = np.array([[True,True,False],[False,True,True]])
 bl_O = np.array([[True,True],[True,True]])
-
-
-##test#######
 class block(object):
     def __init__(self,type,shape,x,y):
         self._shape = shape
@@ -41,10 +38,7 @@ class block(object):
         self.x = x
         self.y = y
     def rotate(self):
-        b = np.zeros((self._shape.shape[1],self._shape.shape[0]))
-        for h_dim in range(0,self._shape.shape[1]):
-            b[h_dim] = np.flip(self._shape[:,h_dim])
-        return block(self._type,b)
+        self._shape = np.rot90(self._shape)
     def get_type(self):
         return self._type
     def __str__(self):
@@ -53,12 +47,11 @@ class block(object):
         for i in range(len(self._shape)):
             for j in range(len(self._shape[i])):
                 if self._shape[i][j]:
-                    pg.draw.rect(screen, (0, 0, 0), (25+40*self.x+40*j,25+40*self.y+40*i,40,40))
+                    pg.draw.rect(screen, (0, 0, 0), (25 + 40 * self.x + 40 * j, 25 + 40 * self.y + 40 * i, 40, 40))
 block_list = [bl_T,bl_L,bl_J,bl_I,bl_S,bl_Z,bl_O]
-block_type = ['T','L', 'J','I','S','Z','O']
+block_type = ['T', 'L', 'J', 'I', 'S', 'Z', 'O']
 x = random.randrange(0,6)
 block_now = block(block_type[x],block_list[x],5,0)
-block_dim = [len(block_now._shape),len(block_now._shape[0])]
 
 
 run = True
@@ -74,10 +67,12 @@ while run:
     keys = pg.key.get_pressed()
     if keys[pg.K_LEFT] and block_now.x > 0:
         block_now.x -= 1
-    if keys[pg.K_RIGHT] and block_now.x < 10 - block_dim[1]:
+    if keys[pg.K_RIGHT] and block_now.x < 10 - len(block_now._shape[0]):
         block_now.x += 1
-    if block_now.y < 15 - block_dim[0]:
-        block_now.y += 1
+    if keys[pg.K_UP]:
+        block_now.rotate()
+    if block_now.y < 15 - len(block_now._shape):
+            block_now.y += 1
 
     pg.display.update()
     clock.tick(60)
