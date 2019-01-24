@@ -14,8 +14,10 @@ def draw_frame():
             pg.draw.line(screen, (0, 0, 0), [25, 25], [425, 25], 3)  # rgb(0,0,0)
             pg.draw.line(screen, (0, 0, 0), [425, 25], [425, 625], 3)  # rgb(0,0,0)
             pg.draw.line(screen, (0, 0, 0), [425, 625], [25, 625], 3)  # rgb(0,0,0)
+blockCount = 0
 
-def fall_fnc(blockCount):
+def fall_fnc():
+    global blockCount
     if block_now[blockCount]._y < 15 - len(block_now[blockCount]._shape):
         block_now[blockCount]._y += 1
     if block_now[blockCount]._y == 15 - len(block_now[blockCount]._shape):
@@ -44,7 +46,7 @@ def add_block():
     x = random.randrange(0, 6)
     return block(block_type[x],block_list[x],4,0)
 ####dont know why is dont work
-def print_block(blockCount):
+def print_block():
     for q in range(0,blockCount):
         block_now[q].draw()
 ##blocks###
@@ -60,7 +62,7 @@ block_type = ['T', 'L', 'J', 'I', 'S', 'Z', 'O']
 
 init_x = random.randrange(0, 6)
 block_now = [block(block_type[init_x],block_list[init_x],4,0)]
-blockCount = 0
+
 
 pg.init()
 back_grid = np.zeros((20,10),dtype = np.bool)
@@ -76,12 +78,13 @@ while run:
         if event.type == pg.QUIT:
             run = False
         if event.type == FALLING:
-            fall_fnc(blockCount)
+            fall_fnc()
     screen.fill((255, 255, 255))  # rgb(255,255,255)
     block_now[blockCount].draw()
     draw_frame()
+    print_block()
 
-    print block_now[blockCount]
+    print blockCount
 
 ####key session####
     keys = pg.key.get_pressed()
