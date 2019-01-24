@@ -48,10 +48,24 @@ class block(object):
             for j in range(len(self._shape[i])):
                 if self._shape[i][j]:
                     pg.draw.rect(screen, (0, 0, 0), (25 + 40 * self.x + 40 * j, 25 + 40 * self.y + 40 * i, 40, 40))
+
 block_list = [bl_T,bl_L,bl_J,bl_I,bl_S,bl_Z,bl_O]
 block_type = ['T', 'L', 'J', 'I', 'S', 'Z', 'O']
-x = random.randrange(0,6)
-block_now = block(block_type[x],block_list[x],5,0)
+
+
+def add_block():
+    x = random.randrange(0, 6)
+    return block(block_type[x],block_list[x],4,0)
+
+init_x = random.randrange(0, 6)
+block_now = [block(block_type[init_x],block_list[init_x],4,0)]
+blockCount = 0
+
+####dont know why is dont work
+def print_block():
+    global blockCount
+    for q in range(0,blockCount):
+        block_now[q].print()
 
 
 run = True
@@ -60,20 +74,26 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
+
     screen.fill((255, 255, 255))  # rgb(255,255,255)
-    block_now.print()
+    block_now[blockCount].print()
     draw()
 
     keys = pg.key.get_pressed()
-    if keys[pg.K_LEFT] and block_now.x > 0:
-        block_now.x -= 1
-    if keys[pg.K_RIGHT] and block_now.x < 10 - len(block_now._shape[0]):
-        block_now.x += 1
+
+    if keys[pg.K_LEFT] and block_now[blockCount].x > 0:
+        block_now[blockCount].x -= 1
+    if keys[pg.K_RIGHT] and block_now[blockCount].x < 10 - len(block_now[blockCount]._shape[0]):
+        block_now[blockCount].x += 1
     if keys[pg.K_UP]:
-        block_now.rotate()
-    if block_now.y < 15 - len(block_now._shape):
-            block_now.y += 1
+        block_now[blockCount].rotate()
+    if block_now[blockCount].y < 15 - len(block_now[blockCount]._shape):
+        block_now[blockCount].y += 1
+    if block_now[blockCount].y == 15 - len(block_now[blockCount]._shape):
+        blockCount += 1
+        block_now.append(add_block())
+
 
     pg.display.update()
-    clock.tick(60)
+
 pg.quit()
