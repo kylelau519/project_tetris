@@ -1,7 +1,5 @@
 import pygame as pg
 import numpy as np
-import random
-import time
 
 ###the grid######the boundary###
 def draw_frame():
@@ -15,7 +13,7 @@ def draw_frame():
     pg.draw.line(screen, (0, 0, 0), [425, 625], [25, 625], 3)  # rgb(0,0,0)
 blockCount = 0
 
-class block(object):
+class block:
     def __init__(self,shape,x,y):
         self.shape = shape
         self._x = x
@@ -38,28 +36,47 @@ class block(object):
     def after_cut(self):
         self._y += 1
 
-def add_to():
-    global back_grid
-    for c in block_now[blockCount].coor():
-        i,j = c
-        back_grid[j][i] = True
+class backgrid:
+    def __init__(self,grid):
+        self.grid = grid
+    def add_to(self):
+        global blockCount
+        for c in block_now[blockCount].coor():
+            i,j = c
+            self.grid[j][i] = True
+    def T_coor(self):
+        t = []
+        for y in range(15):
+            for x in range(10):
+                if self.grid[y][x]:
+                    t.append([x,y])
+        return t
+    def remove(self):
+        for q in range(15):
+            if all(self.grid[q]):
+                self.grid.pop(q)
+                self.grid.insert(0, [False for o in range(10)])
+
+def print_block():
+    for y in range(15):
+        for x in range(10):
+            if back_grid.grid[y][x] == True:
+                pg.draw.rect(screen, (0, 0, 0), (25 + 40 * x, 25 + 40 * y, 40, 40))
 def add_block():
     return block(np.random.choice(block_list),4,0)
-def print_block():
-    for q in range(0,blockCount):
-        block_now[q].draw()
 
 def if_out():
     if block_now[blockCount]._x > 10 - len(block_now[blockCount].shape[0]) or block_now[blockCount]._x < 0:
         return True
 
 def collision():
-    global blockCounts
+    global blockCount
     if blockCount > 0:
-        for i in range(blockCount):
-            for w in block_now[blockCount].coor():
-                if w in block_now[i].coor():
-                    return True
+        temp_block = block_now[blockCount].coor()
+        temp_grid = back_grid.T_coor()
+        for w in temp_block:
+            if w in temp_grid:
+                return True
 
 def fall_fnc():
     global blockCount
@@ -68,29 +85,13 @@ def fall_fnc():
     if block_now[blockCount]._y == 15 - len(block_now[blockCount].shape) or collision():
         if collision():
             block_now[blockCount]._y -= 1
-            add_to()
+            back_grid.add_to()
             blockCount += 1
             block_now.append(add_block())
         else:
-            add_to()
+            back_grid.add_to()
             blockCount += 1
             block_now.append(add_block())
-
-def remove():
-    global back_grid
-    row = []
-    for q in range(15):
-        if all(back_grid[q]):
-            for s in range(10):
-                row.append([s+1,q+1])
-            for e in range(blockCount + 1):
-                for r in row:
-                    if r in block_now[e].coor():
-                        np.delete(block_now[e].shape, (r[1] - block_now[e]._y),axis= 0)
-                        block_now[e].after_cut()
-
-            back_grid.pop(q)
-            back_grid.insert(0,[False for x in range(10)])
 
 
 ##blocks###
@@ -105,7 +106,8 @@ block_list = [bl_T,bl_L,bl_J,bl_I,bl_S,bl_Z,bl_O]
 
 
 block_now = [block(np.random.choice(block_list),4,0)]
-back_grid = [[False for x in range(10)] for y in range(15)]
+grid1 = [[False for x in range(10)] for y in range(15)]
+back_grid = backgrid(grid1)
 
 
 
@@ -128,13 +130,11 @@ while run:
             if event.key == pg.K_UP:
                 block_now[blockCount].rotate()
 
-    screen.fill((255, 255, 255))  # rgb(255,255,255)
+    screen.fill((255, 255, 255))
     block_now[blockCount].draw()
     print_block()
     draw_frame()
-
-
-
+    back_grid.remove()
 ####key session####
     keys = pg.key.get_pressed()
     if keys[pg.K_LEFT] and block_now[blockCount]._x > 0:
@@ -145,7 +145,7 @@ while run:
         block_now[blockCount]._x += 1
         if collision():
             block_now[blockCount]._x -= 1
-    if keys[pg.K_DOWN]:
+    if keys[pg.K_DOWN] and not(block_now[blockCount]._y < 15 - len(block_now[blockCount].shape) and collision()):
         block_now[blockCount]._y += 1
 
     pg.display.update()
