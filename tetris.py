@@ -18,11 +18,12 @@ blockCount = 0
 
 def fall_fnc():
     global blockCount
-    if block_now[blockCount]._y < 15 - len(block_now[blockCount]._shape):
-        block_now[blockCount]._y += 1
-    if block_now[blockCount]._y == 15 - len(block_now[blockCount]._shape):
-        blockCount += 1
-        block_now.append(add_block())
+    if blockCount < 1:
+        if block_now[blockCount]._y < 15 - len(block_now[blockCount]._shape):
+            block_now[blockCount]._y += 1
+        if block_now[blockCount]._y == 15 - len(block_now[blockCount]._shape):
+            blockCount += 1
+            '''block_now.append(add_block())'''
 
 
 class block(object):
@@ -42,6 +43,10 @@ class block(object):
             for j in range(len(self._shape[i])):
                 if self._shape[i][j]:
                     pg.draw.rect(screen, (0, 0, 0), (25+40*self._x+40*j,25+40*self._y+40*i,40,40))
+    def cut(self):
+        np.delete(self._shape, (0), axis=0)
+        print(self._shape)
+
 def add_block():
     x = random.randrange(0, 6)
     return block(block_type[x],block_list[x],4,0)
@@ -80,11 +85,14 @@ while run:
         if event.type == FALLING:
             fall_fnc()
     screen.fill((255, 255, 255))  # rgb(255,255,255)
-    block_now[blockCount].draw()
+    if blockCount < 1:
+        block_now[blockCount].draw()
     draw_frame()
     print_block()
+    if blockCount == 1:
+        block_now[0].cut()
 
-    print blockCount
+
 
 ####key session####
     keys = pg.key.get_pressed()
