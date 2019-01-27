@@ -59,7 +59,7 @@ class backgrid:
         for y in range(2,17):
             for x in range(10):
                 if self.grid[y][x] == True:
-                    pg.draw.rect(screen, (0, 0, 0), (25 + 40 * x, 25 + 40 * y, 40, 40))
+                    pg.draw.rect(screen, (49, 79, 79), (25 + 40 * x, 25 + 40 * y, 40, 40))
 
 def add_block():
     return block(np.random.choice(block_list),4,0)
@@ -99,11 +99,11 @@ def ticking():
 
 def over():
     global Gameover
-    font = pg.font.SysFont("comicsans", 80, False)
+    font = pg.font.SysFont("comicsansms", 75, False)
     text = font.render("Game Over", 1, (255, 0, 0))
     if any(back_grid.grid[0]):
         Gameover = True
-        screen.blit(text, (75,200))
+        screen.blit(text, (35,200))
 ##blocks###
 bl_T = np.array([[True,True,True],[False,True,False]])
 bl_L = np.array([[True,False],[True,False],[True,True]])
