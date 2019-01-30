@@ -27,17 +27,18 @@ class character:
 
 class wt_on_earth:
     def __init__(self):
-        self.box = [pg.Rect(0,360,400,40),pg.Rect(400,320,200,80)]
+        self.box = [pg.Rect(0,360,400,40),pg.Rect(400,320,200,80),pg.Rect(300,300,50,20)]
     def draw(self):
-        for i in range(2):
+        for i in range(len(self.box)):
             pg.draw.rect(screen,(0,255,0),self.box[i])
 
 def colli():
-    if mario.hitbox().colliderect(map.box[0]) or mario.hitbox().colliderect(map.box[1]):
-        return True
+    for i in range(len(map.box)):
+        if mario.hitbox().colliderect(map.box[i]):
+            return True
     return False
 def gravity():
-    if not(mario.hitbox().colliderect(pg.Rect(0,355,400,5)) or mario.hitbox().colliderect(pg.Rect(400,315,200,5))):
+    if not(mario.hitbox().colliderect(pg.Rect(0,355,400,5)) or mario.hitbox().colliderect(pg.Rect(400,315,200,5)) or mario.hitbox().colliderect(pg.Rect(300,295,50,5))):
         mario.y += 10
 
 pg.init()
