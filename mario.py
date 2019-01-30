@@ -8,14 +8,7 @@ class character:
         self.height = 40
         self.vel = 5
         self.jumping = False
-        self.jumpCount = 10
-    def jump(self):
-        if mario.jumpCount >= -10 and not(self.colli()):
-            mario.y -= (mario.jumpCount * abs(mario.jumpCount)) * 0.5
-            mario.jumpCount -= 1
-        else:
-            mario.jumping = False
-            mario.jumpCount = 10
+        self.jumpCount = 50
     def hitbox(self):
         return pg.Rect(self.x, self.y, self.width, self.height)
     def draw(self):
@@ -34,6 +27,9 @@ def colli():
     if mario.hitbox().colliderect(map.box[0]) or mario.hitbox().colliderect(map.box[1]):
         return True
     return False
+def gravity():
+    if not(mario.hitbox().colliderect(pg.Rect(0,354,400,5)) or mario.hitbox().colliderect(pg.Rect(400,314,200,5))):
+        mario.y += 10
 
 pg.init()
 screen = pg.display.set_mode((600,400))
@@ -52,22 +48,32 @@ while run:
 
     screen.fill((0, 0, 0))
     map.draw()
+    gravity()
     mario.draw()
-    mario.gravity()
+
+
     keys = pg.key.get_pressed()
     if keys[pg.K_LEFT] and mario.x > 0:
         mario.x -= mario.vel
-        if mario.colli():
+        if colli():
             mario.x += mario.vel
-    if keys[pg.K_RIGHT] and mario.x < 600:
+    if keys[pg.K_RIGHT] and mario.x < 575:
         mario.x += mario.vel
-        if mario.colli():
+        if colli():
             mario.x -= mario.vel
     if not(mario.jumping):
         if keys[pg.K_UP]:
             mario.jumping = True
     else:
-        mario.jump()
+        if mario.jumpCount >= -50:
+            temp = (mario.jumpCount * abs(mario.jumpCount)) * 0.3
+            mario.y -= mario.jumpCount
+            if colli():
+                mario.y += mario.jumpCount
+            mario.jumpCount -= 10
+        else:
+            mario.jumping = False
+            mario.jumpCount = 50
 
     pg.display.update()
 pg.quit()
