@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da5c3538-fb4b-48c0-be59-98dae02199ff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mario.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/snake.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tetris.py" beforeDir="false" afterPath="$PROJECT_DIR$/tetris.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tetris_block.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mario.py" beforeDir="false" afterPath="$PROJECT_DIR$/mario.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,17 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mario.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
+            <state>
+              <caret column="19" selection-start-column="19" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -91,14 +77,14 @@
         <option value="$PROJECT_DIR$/try.py" />
         <option value="$PROJECT_DIR$/tetris.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/mario.py" />
         <option value="$PROJECT_DIR$/snake.py" />
+        <option value="$PROJECT_DIR$/mario.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="815" />
-    <option name="y" value="25" />
+    <option name="x" value="607" />
+    <option name="y" value="202" />
     <option name="width" value="1075" />
     <option name="height" value="980" />
   </component>
@@ -141,7 +127,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.snake">
+  <component name="RunManager" selected="Python.mario">
     <configuration name="mario" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="project_tetris" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -249,8 +235,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.snake" />
         <item itemvalue="Python.mario" />
+        <item itemvalue="Python.snake" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.tetris" />
         <item itemvalue="Python.try" />
@@ -307,13 +293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/snake.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -321,6 +300,13 @@
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -336,8 +322,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mario.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state>
+          <caret column="19" selection-start-column="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>
