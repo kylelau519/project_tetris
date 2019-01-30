@@ -11,6 +11,15 @@ class character:
         self.jumpCount = 50
     def hitbox(self):
         return pg.Rect(self.x, self.y, self.width, self.height)
+    def jump(self):
+        if self.jumpCount >= -50:
+            self.y -= self.jumpCount
+            if colli():
+                self.y += self.jumpCount
+            self.jumpCount -= 10
+        else:
+            self.jumping = False
+            self.jumpCount = 50
     def draw(self):
         pg.draw.rect(screen,(255,255,255),self.hitbox())
 
@@ -28,7 +37,7 @@ def colli():
         return True
     return False
 def gravity():
-    if not(mario.hitbox().colliderect(pg.Rect(0,354,400,5)) or mario.hitbox().colliderect(pg.Rect(400,314,200,5))):
+    if not(mario.hitbox().colliderect(pg.Rect(0,355,400,5)) or mario.hitbox().colliderect(pg.Rect(400,315,200,5))):
         mario.y += 10
 
 pg.init()
@@ -65,15 +74,7 @@ while run:
         if keys[pg.K_UP]:
             mario.jumping = True
     else:
-        if mario.jumpCount >= -50:
-            temp = (mario.jumpCount * abs(mario.jumpCount)) * 0.3
-            mario.y -= mario.jumpCount
-            if colli():
-                mario.y += mario.jumpCount
-            mario.jumpCount -= 10
-        else:
-            mario.jumping = False
-            mario.jumpCount = 50
+        mario.jump()
 
     pg.display.update()
 pg.quit()
